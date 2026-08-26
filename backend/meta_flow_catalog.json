@@ -1,9 +1,10 @@
 {
-  "version": "3.1",
+  "version": "7.3",
   "screens": [
     {
       "id": "CATALOG_SCREEN",
-      "title": "Selecciona tus Productos",
+      "title": "Catálogo de Productos",
+      "data": {},
       "layout": {
         "type": "SingleColumnLayout",
         "children": [
@@ -13,14 +14,30 @@
           },
           {
             "type": "TextBody",
-            "text": "Elige el producto que deseas pedir y la cantidad:"
+            "text": "Selecciona el producto y la cantidad que deseas pedir:"
           },
           {
             "type": "Dropdown",
-            "name": "selected_product_id",
+            "name": "selected_product",
             "label": "Producto",
             "required": true,
-            "data-source": "${data.products}"
+            "data-source": [
+              {
+                "id": "1",
+                "title": "Cuerdas Ernie Ball Calibre 10 — S/ 25.00",
+                "description": "Stock disponible: 10 unid"
+              },
+              {
+                "id": "2",
+                "title": "Cable Plug 3 Metros — S/ 35.00",
+                "description": "Stock disponible: 8 unid"
+              },
+              {
+                "id": "3",
+                "title": "Capotraste Profesional — S/ 20.00",
+                "description": "Stock disponible: 15 unid"
+              }
+            ]
           },
           {
             "type": "TextInput",
@@ -40,7 +57,7 @@
                 "name": "DELIVERY_SCREEN"
               },
               "payload": {
-                "selected_product_id": "${form.selected_product_id}",
+                "selected_product": "${form.selected_product}",
                 "quantity": "${form.quantity}"
               }
             }
@@ -51,6 +68,18 @@
     {
       "id": "DELIVERY_SCREEN",
       "title": "Datos de Entrega y Pago",
+      "terminal": true,
+      "success": true,
+      "data": {
+        "selected_product": {
+          "type": "string",
+          "__example__": "1"
+        },
+        "quantity": {
+          "type": "string",
+          "__example__": "1"
+        }
+      },
       "layout": {
         "type": "SingleColumnLayout",
         "children": [
@@ -77,7 +106,7 @@
           {
             "type": "TextInput",
             "name": "customer_name",
-            "label": "Tu Nombre Completo",
+            "label": "Nombre del Cliente",
             "required": true
           },
           {
@@ -130,7 +159,7 @@
           {
             "type": "TextInput",
             "name": "tax_id",
-            "label": "DNI o RUC (si solicitas comprobante)",
+            "label": "DNI o RUC (Opcional)",
             "required": false
           },
           {
@@ -139,7 +168,7 @@
             "on-click-action": {
               "name": "complete",
               "payload": {
-                "selected_product_id": "${data.selected_product_id}",
+                "selected_product": "${data.selected_product}",
                 "quantity": "${data.quantity}",
                 "customer_name": "${form.customer_name}",
                 "delivery_type": "${form.delivery_type}",
