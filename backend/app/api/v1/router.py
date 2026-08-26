@@ -13,7 +13,8 @@ from app.api.v1.endpoints import (
     config,
     users,
     store,
-    tracking
+    tracking,
+    whatsapp_webhook
 )
 
 api_router = APIRouter()
@@ -31,3 +32,4 @@ api_router.include_router(config.router, prefix="/config", tags=["config"])
 api_router.include_router(users.router, prefix="/users", tags=["users"])
 api_router.include_router(store.router, prefix="/store", tags=["store"])
 api_router.include_router(tracking.router, prefix="/tracking", tags=["tracking"])
+api_router.include_router(whatsapp_webhook.router, prefix="/whatsapp", tags=["WhatsApp Meta Cloud API"])

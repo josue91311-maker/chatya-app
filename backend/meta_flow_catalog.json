@@ -1,0 +1,157 @@
+{
+  "version": "3.1",
+  "screens": [
+    {
+      "id": "CATALOG_SCREEN",
+      "title": "Selecciona tus Productos",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "🛒 Catálogo de Productos"
+          },
+          {
+            "type": "TextBody",
+            "text": "Elige el producto que deseas pedir y la cantidad:"
+          },
+          {
+            "type": "Dropdown",
+            "name": "selected_product_id",
+            "label": "Producto",
+            "required": true,
+            "data-source": "${data.products}"
+          },
+          {
+            "type": "TextInput",
+            "name": "quantity",
+            "label": "Cantidad (Unidades)",
+            "input-type": "number",
+            "required": true,
+            "helper-text": "Ejemplo: 1, 2, 3..."
+          },
+          {
+            "type": "Footer",
+            "label": "Continuar a Entrega ➔",
+            "on-click-action": {
+              "name": "navigate",
+              "next": {
+                "type": "screen",
+                "name": "DELIVERY_SCREEN"
+              },
+              "payload": {
+                "selected_product_id": "${form.selected_product_id}",
+                "quantity": "${form.quantity}"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "DELIVERY_SCREEN",
+      "title": "Datos de Entrega y Pago",
+      "layout": {
+        "type": "SingleColumnLayout",
+        "children": [
+          {
+            "type": "TextHeading",
+            "text": "📍 Entrega y Pago"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "delivery_type",
+            "label": "Método de Entrega",
+            "required": true,
+            "data-source": [
+              {
+                "id": "delivery",
+                "title": "🚚 Envío a Domicilio (Delivery)"
+              },
+              {
+                "id": "pickup",
+                "title": "🏪 Recojo en Tienda"
+              }
+            ]
+          },
+          {
+            "type": "TextInput",
+            "name": "customer_name",
+            "label": "Tu Nombre Completo",
+            "required": true
+          },
+          {
+            "type": "TextInput",
+            "name": "delivery_address",
+            "label": "Dirección de Entrega y Distrito",
+            "required": false,
+            "helper-text": "Av., Calle, Número y Distrito"
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "payment_method",
+            "label": "Forma de Pago",
+            "required": true,
+            "data-source": [
+              {
+                "id": "Yape / Plin",
+                "title": "📱 Yape / Plin"
+              },
+              {
+                "id": "Transferencia BCP",
+                "title": "🏦 Transferencia Bancaria"
+              },
+              {
+                "id": "Efectivo",
+                "title": "💵 Efectivo contra entrega"
+              }
+            ]
+          },
+          {
+            "type": "RadioButtonsGroup",
+            "name": "receipt_type",
+            "label": "Tipo de Comprobante",
+            "required": true,
+            "data-source": [
+              {
+                "id": "boleta",
+                "title": "🧾 Boleta de Venta"
+              },
+              {
+                "id": "factura",
+                "title": "📄 Factura (RUC)"
+              },
+              {
+                "id": "none",
+                "title": "❌ Sin comprobante"
+              }
+            ]
+          },
+          {
+            "type": "TextInput",
+            "name": "tax_id",
+            "label": "DNI o RUC (si solicitas comprobante)",
+            "required": false
+          },
+          {
+            "type": "Footer",
+            "label": "✅ Confirmar y Enviar Pedido",
+            "on-click-action": {
+              "name": "complete",
+              "payload": {
+                "selected_product_id": "${data.selected_product_id}",
+                "quantity": "${data.quantity}",
+                "customer_name": "${form.customer_name}",
+                "delivery_type": "${form.delivery_type}",
+                "delivery_address": "${form.delivery_address}",
+                "payment_method": "${form.payment_method}",
+                "receipt_type": "${form.receipt_type}",
+                "tax_id": "${form.tax_id}"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
