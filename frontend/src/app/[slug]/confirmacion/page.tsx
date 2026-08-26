@@ -27,25 +27,14 @@ export default function ConfirmationPage({ params }: { params: { slug: string } 
       .catch(() => {});
   }, [params.slug]);
 
-  // Auto-open WhatsApp after 1s (only in real mode, not preview)
-  useEffect(() => {
-    if (!isPreview && waUrlParam) {
-      const timer = setTimeout(() => {
-        window.location.href = decodeURIComponent(waUrlParam);
-        setWaOpened(true);
-      }, 1200);
-      return () => clearTimeout(timer);
-    }
-  }, [isPreview, waUrlParam]);
-
   const decodedWaUrl = waUrlParam ? decodeURIComponent(waUrlParam) : '';
 
   const handleWhatsApp = () => {
     if (decodedWaUrl) {
-      window.location.href = decodedWaUrl;
+      window.location.assign(decodedWaUrl);
       setWaOpened(true);
     } else if (storeInfo?.phone_whatsapp) {
-      window.location.href = `https://wa.me/${storeInfo.phone_whatsapp}`;
+      window.location.assign(`https://wa.me/${storeInfo.phone_whatsapp}`);
     }
   };
 

@@ -358,8 +358,6 @@ export default function ProductDetailPage({
             href={`https://wa.me/${(product.company_phone || '51999999999').replace(/\D/g, '')}?text=${encodeURIComponent(
               `Hola! Quisiera consultar sobre este producto:\n\n📌 *${product.name}*\n💰 Precio: S/ ${Number(activePrice).toFixed(2)} (${selectedFactor?.unit_name || product.unit_name})\n🔢 Código/SKU: ${product.sku || 'PROD-' + product.id}`
             )}`}
-            target="_blank"
-            rel="noopener noreferrer"
             className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white py-3.5 px-4 rounded-2xl font-bold text-sm flex items-center justify-center gap-2 shadow-sm transition-all active:scale-[0.98]"
           >
             <span className="text-base">💬</span>
