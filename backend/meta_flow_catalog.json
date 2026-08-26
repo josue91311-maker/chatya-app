@@ -76,8 +76,8 @@
           "__example__": "1"
         },
         "quantity": {
-          "type": "string",
-          "__example__": "1"
+          "type": "number",
+          "__example__": 1
         }
       },
       "layout": {
