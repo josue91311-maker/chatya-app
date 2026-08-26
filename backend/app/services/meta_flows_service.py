@@ -285,16 +285,19 @@ async def process_flow_completion(payload: Dict[str, Any], sender_phone: str, db
     db.commit()
 
     # Send Rich Confirmation Message in the Chat
+    delivery_line = f"🚚 *Delivery:* S/ {delivery_cost:.2f}\n" if delivery_cost > 0 else ""
+    delivery_place = delivery_address if delivery_type == "delivery" else "Recojo en tienda"
+
     confirmation_text = (
         f"🎉 *¡Pedido Recibido con Éxito!* 🎉\n\n"
         f"📋 *Código de Pedido:* `{order_code}`\n"
         f"👤 *Cliente:* {customer_name}\n"
         f"🛍️ *Detalle:* {quantity}× {product.name} (S/ {unit_price:.2f})\n"
         f"💰 *Subtotal:* S/ {subtotal:.2f}\n"
-        f"{f'🚚 *Delivery:* S/ {delivery_cost:.2f}\n' if delivery_cost > 0 else ''}"
+        f"{delivery_line}"
         f"💳 *TOTAL A PAGAR:* *S/ {total:.2f}*\n\n"
         f"💳 *Forma de Pago:* {payment_method}\n"
-        f"📍 *Entrega:* {delivery_address if delivery_type == 'delivery' else 'Recojo en tienda'}\n\n"
+        f"📍 *Entrega:* {delivery_place}\n\n"
         f"🔍 *Seguimiento en vivo:*\nhttps://chatya-app.vercel.app/seguimiento/{tracking_token}\n\n"
         f"✅ *Tu pedido está siendo preparado por el equipo de {company_name}.* ¡Muchas gracias por tu compra!"
     )
