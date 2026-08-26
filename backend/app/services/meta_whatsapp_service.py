@@ -74,6 +74,7 @@ async def send_flow_message(
                     "flow_id": active_flow_id,
                     "flow_cta": flow_cta,
                     "flow_action": "navigate",
+                    "mode": "draft",
                     "flow_action_payload": {
                         "screen": "CATALOG_SCREEN",
                         "data": {}
