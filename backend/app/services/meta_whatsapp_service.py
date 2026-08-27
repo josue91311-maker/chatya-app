@@ -76,8 +76,7 @@ async def send_flow_message(
                     "flow_action": "navigate",
                     "mode": "draft",
                     "flow_action_payload": {
-                        "screen": "CATALOG_SCREEN",
-                        "data": {}
+                        "screen": "CATALOG_SCREEN"
                     }
                 }
             }
